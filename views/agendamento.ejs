@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="imagens/favicon.ico" type="image/x-icon">
+    <title>Cabeleleila Leila</title>
+</head>
+
+<body>
+    <div class="cabecalho">
+        <h1 class="logo">Cabeleleila Leila</h1>
+        <span id="btn-sair"><img class="icon icon-btn" src="imagens/sair.png" alt="Botão para sair"></span>
+    </div>
+    <div class="corpo">
+
+        <div class="container-principal">
+            <div class="container agendamento">
+                <div class="inputs flex-column-center justify-top">
+                    <h2 class="" id="titulo-agendamento">Agendamento</h2>
+                    <h2 class="hidden" id="titulo-editar">Editar Agendamento</h2>
+                    <input class="input" id="ipt-data" type="date" placeholder="data">
+                    <input class="input" id="ipt-hora" type="time" placeholder="hora">
+                    <input class="input" id="ipt-telefone" type="phone" placeholder="Telefone para contato">
+                    <textarea class="input" id="ipt-descricao" cols="30" rows="3"
+                        placeholder="Descrição (corte masc., corte fem., pintura, etc)"></textarea>
+
+                    <button class="botao" id="btn-agendar">Fazer Agendamento</button>
+                    <button class="botao hidden" id="btn-editar">Salvar Alterações</button>
+                    <button class="botao hidden" id="btn-cancelar">Cancelar Agendamento</button>
+                </div>
+            </div>
+            <div class="container agendamento hidden box">
+                <div class="inputs flex-column-center">
+                    <h2>Editar Agendamento</h2>
+                    <input class="input" type="date" placeholder="data">
+                    <input class="input" type="time" placeholder="hora">
+                    <input class="input" type="phone" placeholder="Telefone para contato">
+                    <textarea class="input" cols="30" rows="3"
+                        placeholder="Descrição (corte masc., corte fem., pintura, etc)"></textarea>
+                    <button class="botao">Salvar Alterações</button>
+                    <button class="botao">Cancelar Agendamento</button>
+                </div>
+            </div>
+            <div class="container historico">
+                <div class="flex-column-center">
+                    <h2 class="titulo">Lista de Agendamento Realizados</h2>
+                    <table id="historico-agendamentos">
+                        <tr>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Descrição</th>
+                            <th>Opções</th>
+                        </tr>
+                        <% for(const agendamento of agendamentos){ %>
+                            <% let [ano, mes, dia]=agendamento.data.split("-") %>
+                                <tr>
+                                    <td>
+                                        <%= dia +"-"+ mes +"-"+ ano %>
+                                    </td>
+                                    <td>
+                                        <%= agendamento.hora %>
+                                    </td>
+                                    <td>
+                                        <%= agendamento.descricao %>
+                                    </td>
+                                    <td><span
+                                            onclick="selecionarAgendamento('<%= agendamento.id_agendamento %>', '<%= agendamento.data %>')"
+                                            class="opcoes"><img class="icon icon-btn" src="imagens/edit.png" alt="Editar"></span>
+                                    </td>
+
+                                </tr>
+                                <% }%>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="rodape">
+        <div class="container contatos">
+            <h2>Info para contato</h2>
+            <p class="contato"><img class="icon" src="imagens/whatsapp.png" alt="Icone do whatsapp">(14) 99999-8888</p>
+            <p class="contato"><img class="icon" src="imagens/telefone.png" alt="Icone de telefone">(14) 3333-2222</p>
+            <p class="contato"><img class="icon" src="imagens/facebook.png" alt="Icone do facebook">Cabeleleila Leila
+            </p>
+            <p class="contato"><img class="icon" src="imagens/instagram.png" alt="Icone do instagram">@CabeleleilaLeila
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    const id = '<%= JSON.stringify(idUsuario) %>'
+    let agendamentos = JSON.parse('<%- JSON.stringify(agendamentos) %>')
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="agendamento.js"></script>
+
+</html>
